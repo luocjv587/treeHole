@@ -16,10 +16,26 @@
         <p>P.S. 我相信一个没有入侵性广告和在线跟踪的互联网。</p>
       </div>
     </div>
+    <div v-if="openFeelingDown" id="feeling-down" class="note full-rotate border"><p>Everything okay?</p>
+      <p>If you or someone you know is struggling, you are not alone. There are many support services that are here to
+        help. </p>
+      <p>If you are located in the United States, consider reaching out to the <a href="https://www.nami.org/help">National
+        Alliance on Mental Illness HelpLine.</a></p>
+      <p>If you are located in the United Kingdom, <a href="https://www.themix.org.uk/get-support">The Mix</a> is here
+        to help you with any challenge you are facing. Reach out online, on social or through their free and
+        confidential helpline.</p>
+      <p>If you are reading this from in any other country in Europe, <a
+        href="https://mhe-sme.org/library/youth-helplines/">Mental Health Europe</a> has compiled a list of helplines
+        and other resources in your country. </p>
+      <p>For more resources, please visit this <a href="http://www.tumblr.com/docs/en/counseling_prevention_resources">Counseling
+        &amp; Prevention Resources</a> page for a list of services that may be able to help.</p>
+    </div>
+
+
     <div id="message-controls" class="note full-rotate border center">
       <button>阅读一份消息</button>
       <button>💖</button>
-      <button>感到沮丧?</button> <!----></div>
+      <button v-if="!openFeelingDown" @click="openFeelingDown=true">感到沮丧?</button></div>
     <div id="letter" class="note full-rotate border">
       <form><textarea id="letter-textarea" rows="" placeholder="" class="textarea"></textarea>
         <div class="flex">
@@ -28,18 +44,19 @@
       </form>
     </div>
     <div id="music player"></div>
-    <div id="share" class="note full-rotate border center"><p>我已经呆了 {{existsTimeArr.year}} 年, {{existsTimeArr.month}} 月, {{existsTimeArr.day}} 日, {{existsTimeArr.hour}} 小时, {{existsTimeArr.minute}} 分钟,
+    <div id="share" class="note full-rotate border center"><p>我已经呆了 {{existsTimeArr.year}} 年, {{existsTimeArr.month}} 月,
+      {{existsTimeArr.day}} 日, {{existsTimeArr.hour}} 小时, {{existsTimeArr.minute}} 分钟,
       和 {{existsTimeArr.second}} 秒.</p>
       <p>请考虑把我分享给朋友们，这样我就可以在这里多呆一会儿。</p>
-      <a
-        href="mailto:?subject=This Website Will Selfdestruct&amp;body=Check out ThisWebsiteWillSelfdestruct.com.  If nobody sends a message, it will go away."
-        class="paper-btn share-btn email">
-        Email
-      </a></div>
-    <div id="footer" class="note full-rotate border center"><p>A site by <a href="https://twitter.com/femmeandroid">@FemmeAndroid</a>
-      · <a href="https://ko-fi.com/femmeandroid">Buy me a coffee on Ko-fi</a> · <a
-        href="https://www.patreon.com/FemmeAndroid">Support me on Patreon</a> · <a>Report letter</a></p>
-      <p><a href="/privacy">Privacy Policy</a> · <a href="/tos">Terms of Service</a></p></div>
+      <!--      <a-->
+      <!--        href="mailto:?subject=This Website Will Selfdestruct&amp;body=Check out ThisWebsiteWillSelfdestruct.com.  If nobody sends a message, it will go away."-->
+      <!--        class="paper-btn share-btn email">-->
+      <!--        Email-->
+      <!--      </a>-->
+    </div>
+    <div id="footer" class="note full-rotate border center"><p>A site by <a href="">@Luo</a>
+    </p>
+      <p><a href="/privacy">隐私政策</a></p></div>
   </div>
 </template>
 
@@ -50,14 +67,15 @@
       return {
         countDownSecond: 80000,
         startTime: "2020-07-14",
-        existsTimeArr:{
-          year:0,
-          month:0,
-          day:0,
-          hour:0,
-          minute:0,
-          second:0,
+        existsTimeArr: {
+          year: 0,
+          month: 0,
+          day: 0,
+          hour: 0,
+          minute: 0,
+          second: 0,
         },
+        openFeelingDown:false,
       }
     },
     created() {
@@ -101,7 +119,10 @@
           this.existsTimeArr.minute = minute;
           this.existsTimeArr.second = second;
         }, 1000);
-      }
+      },
+      feelingDown(){
+        this.openFeelingDown = true
+      },
     },
   }
 </script>
