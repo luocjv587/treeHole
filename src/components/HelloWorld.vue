@@ -38,7 +38,7 @@
     <div id="letter" class="note full-rotate border" v-if="openSend">
       <form><textarea id="letter-textarea" rows="" placeholder="" class="textarea" v-model="sendLetterInfo"></textarea>
         <div class="flex">
-          <button type="submit" class="right" @click="sendLetter">发送</button>
+          <button type="button" class="right" @click="sendLetter">发送</button>
         </div>
       </form>
     </div>
