@@ -141,6 +141,7 @@
         console.log(result.data.data.letter_info)
         this.letterInfo = result.data.data.letter_info
         this.currentLetterId = result.data.data.id
+        window.scrollTo(0, 0)
       },
       //发送一封信
       async sendLetter() {
