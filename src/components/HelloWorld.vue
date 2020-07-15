@@ -56,6 +56,9 @@
     <div id="footer" class="note full-rotate border center"><p>A site by <a href="">@Luo</a>
     </p>
       <p><a href="privacy">隐私政策</a></p></div>
+
+    <div id="source" class="note full-rotate border center">
+      <p><a href="https://www.thiswebsitewillselfdestruct.com/">创意来源</a></p></div>
   </div>
 </template>
 
