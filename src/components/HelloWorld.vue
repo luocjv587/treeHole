@@ -61,12 +61,11 @@
 
 <script>
   import axios from "axios";
-
-  const BACK_URL = "http://127.0.0.1:9501";
   export default {
     name: 'HelloWorld',
     data() {
       return {
+        backUrl: process.env.VUE_APP_BACK_URL,
         countDownSecond: 80000,
         startTime: "2020-07-14",
         existsTimeArr: {
@@ -85,6 +84,7 @@
       }
     },
     created() {
+      console.log(9, process.env);
       this.countDown();
       this.existTime();
       this.getSeconds();
@@ -132,19 +132,19 @@
       },
       //获取倒计时
       async getSeconds() {
-        let result = await axios.get(BACK_URL + '/getSecond')
+        let result = await axios.get(this.backUrl + '/getSecond')
         this.countDownSecond = result.data.data.seconds
       },
       //获取一封信
       async getLetter() {
-        let result = await axios.get(BACK_URL + '/getLetter')
+        let result = await axios.get(this.backUrl + '/getLetter')
         console.log(result.data.data.letter_info)
         this.letterInfo = result.data.data.letter_info
         this.currentLetterId = result.data.data.id
       },
       //发送一封信
       async sendLetter() {
-        await axios.post(BACK_URL + '/createLetter', {
+        await axios.post(this.backUrl + '/createLetter', {
           letter_info: this.sendLetterInfo,
         })
         this.openSend = false
@@ -152,7 +152,7 @@
       },
       //喜爱
       async like() {
-        let result = await axios.post(BACK_URL + '/likeLetter', {
+        let result = await axios.post(this.backUrl + '/likeLetter', {
           letter_id: this.currentLetterId
         })
       }
