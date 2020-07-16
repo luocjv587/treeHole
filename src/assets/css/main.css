@@ -872,7 +872,8 @@ html {
 }
 
 a, button, html, input, option, p, select, table, tbody, td, textarea, th, thead, tr {
-  font-family: Neucha, sans-serif
+  /*font-family: Neucha, sans-serif*/
+  font-family: custom
 }
 
 h1, h2, h3, h4, h5, h6 {
