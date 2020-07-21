@@ -15,7 +15,10 @@
         <p>treeHole(dot)site</p>
         <p>P.S. 我相信一个没有入侵性广告和在线跟踪的互联网。</p>
       </div>
-      <div style="white-space: pre-wrap;" v-else><p>{{this.letterInfo}}</p></div>
+      <div style="white-space: pre-wrap;" v-else>
+        <p>{{this.letterInfo}}</p>
+        <p style="float: right">💖 : {{this.likeNum}} , Gets : {{this.getNum}}</p>
+      </div>
     </div>
     <div v-if="openFeelingDown" id="feeling-down" class="note full-rotate border"><p>一切都好吗？</p>
       <p>如果你或你认识的人正在挣扎，你并不孤单。这里有许多支持服务可以提供帮助。 </p>
@@ -32,7 +35,7 @@
 
     <div id="message-controls" class="note full-rotate border center">
       <button @click="getLetter">阅读一份消息</button>
-      <button @click="like">💖</button>
+      <button @click="like" v-if="likeSend">💖</button>
       <button v-if="!openFeelingDown" @click="openFeelingDown=true">感到沮丧?</button>
     </div>
     <div id="letter" class="note full-rotate border" v-if="openSend">
@@ -82,8 +85,11 @@
         openFeelingDown: false,
         letterInfo: "",
         sendLetterInfo: "Hi, \n",
+        likeNum:0,
+        getNum:0,
         openSend: true,
         currentLetterId: 1,
+        likeSend: true,
       }
     },
     created() {
@@ -141,9 +147,11 @@
       //获取一封信
       async getLetter() {
         let result = await axios.get(this.backUrl + '/getLetter')
-        console.log(result.data.data.letter_info)
         this.letterInfo = result.data.data.letter_info
         this.currentLetterId = result.data.data.id
+        this.likeNum = result.data.data.like
+        this.getNum = result.data.data.get
+        this.likeSend = true
         window.scrollTo(0, 0)
       },
       //发送一封信
@@ -159,6 +167,10 @@
         let result = await axios.post(this.backUrl + '/likeLetter', {
           letter_id: this.currentLetterId
         })
+        if (result.data.code === "1"){
+          this.likeNum += 1
+          this.likeSend = false
+        }
       }
     },
   }
